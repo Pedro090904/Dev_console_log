@@ -1,0 +1,25 @@
+{
+  "name": "dev_console_log",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pedro090904/Dev_console_log.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Pedro090904/Dev_console_log/issues"
+  },
+  "homepage": "https://github.com/Pedro090904/Dev_console_log#readme",
+  "dependencies": {
+    "pm2": "^6.0.14",
+    "socket.io": "^4.8.3"
+  }
+}
