@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:4000');
+const socket = io('http://localhost:8093');
 
 export default function Home() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function Home() {
       <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #1E293B', paddingBottom: '24px', marginBottom: '40px' }}>
         <div>
           <h1 style={{ margin: 0, fontSize: '28px', fontWeight: '700', letterSpacing: '-0.5px' }}>
-            <span style={{ color: '#3B82F6' }}>Nexus</span> Monitor
+            <span style={{ color: '#3B82F6' }}>DEV</span> Monitor
           </h1>
           <p style={{ color: '#64748B', margin: '8px 0 0 0', fontSize: '14px' }}>Painel de Controle de Infraestrutura • IP: Localhost</p>
         </div>

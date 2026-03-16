@@ -5,7 +5,7 @@ const { Server } = require('socket.io');
 const server = http.createServer();
 const io = new Server(server, { cors: { origin: '*' } });
 
-server.listen(4000, () => {
+server.listen(8093, () => {
   console.log('📡 [DevAtlas Agent] Torre de transmissão ligada na porta 4000!');
 });
 

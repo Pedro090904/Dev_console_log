@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import localforage from 'localforage';
 
-const socket = io('http://localhost:4000');
+const socket = io('http://localhost:8093');
 
 const limparCoresTerminal = (texto: string) => {
   if (!texto) return '';
