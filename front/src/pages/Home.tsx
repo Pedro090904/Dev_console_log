@@ -20,7 +20,7 @@ export default function Home() {
       <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #1E293B', paddingBottom: '24px', marginBottom: '40px' }}>
         <div>
           <h1 style={{ margin: 0, fontSize: '28px', fontWeight: '700', letterSpacing: '-0.5px' }}>
-            <span style={{ color: '#3B82F6' }}>DEV</span> Monitor
+            <span style={{ color: '#3B82F6' }}>NEXUS</span> Monitor
           </h1>
           <p style={{ color: '#64748B', margin: '8px 0 0 0', fontSize: '14px' }}>Painel de Controle de Infraestrutura • IP: Localhost</p>
         </div>
@@ -60,7 +60,7 @@ export default function Home() {
             }}
           >
             {/* Linha superior do Card */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div>
                 <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '600', color: '#F1F5F9' }}>{app.nome}</h3>
                 <span style={{ color: '#64748B', fontSize: '12px', fontFamily: 'monospace' }}>PID: {app.pid}</span>
@@ -71,6 +71,15 @@ export default function Home() {
               </div>
             </div>
             
+            {/* Ações PM2 */}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+              <button onClick={(e) => { e.stopPropagation(); socket.emit('pm2Acao', { appName: app.id, acao: 'start' }); }} style={{ flex: 1, padding: '6px 0', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '6px', cursor: 'pointer', fontSize: '11px', fontWeight: '600', transition: 'all 0.2s', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '4px' }}>▶ Start</button>
+              <button onClick={(e) => { e.stopPropagation(); socket.emit('pm2Acao', { appName: app.id, acao: 'restart' }); }} style={{ flex: 1, padding: '6px 0', backgroundColor: 'rgba(59, 130, 246, 0.1)', color: '#3B82F6', border: '1px solid rgba(59, 130, 246, 0.3)', borderRadius: '6px', cursor: 'pointer', fontSize: '11px', fontWeight: '600', transition: 'all 0.2s', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '4px' }}>↻ Restart</button>
+              <button onClick={(e) => { e.stopPropagation(); socket.emit('pm2Acao', { appName: app.id, acao: 'stop' }); }} style={{ flex: 1, padding: '6px 0', backgroundColor: 'rgba(245, 158, 11, 0.1)', color: '#F59E0B', border: '1px solid rgba(245, 158, 11, 0.3)', borderRadius: '6px', cursor: 'pointer', fontSize: '11px', fontWeight: '600', transition: 'all 0.2s', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '4px' }}>⏸ Parar</button>
+              <button onClick={(e) => { e.stopPropagation(); socket.emit('pm2Acao', { appName: app.id, acao: 'delete' }); }} style={{ flex: 1, padding: '6px 0', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#EF4444', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '6px', cursor: 'pointer', fontSize: '11px', fontWeight: '600', transition: 'all 0.2s', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '4px' }}>🗑 Delete</button>
+            </div>
+            
+
             {/* Grid de Métricas Internas */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>

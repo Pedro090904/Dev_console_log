@@ -11,6 +11,19 @@ server.listen(8093, () => {
 
 io.on('connection', (socket) => {
   console.log(`[🟢 Espectador Conectado] ID: ${socket.id}`);
+
+  socket.on('pm2Acao', ({ appName, acao }) => {
+    console.log(`[Comando Recebido] ${acao} na aplicação ${appName}`);
+    if (acao === 'start') {
+      pm2.start(appName, (err) => { if (err) console.error(`Erro ao iniciar ${appName}:`, err); });
+    } else if (acao === 'restart') {
+      pm2.restart(appName, (err) => { if (err) console.error(`Erro ao reiniciar ${appName}:`, err); });
+    } else if (acao === 'stop') {
+      pm2.stop(appName, (err) => { if (err) console.error(`Erro ao parar ${appName}:`, err); });
+    } else if (acao === 'delete') {
+      pm2.delete(appName, (err) => { if (err) console.error(`Erro ao deletar ${appName}:`, err); });
+    }
+  });
 });
 
 pm2.connect((err) => {
