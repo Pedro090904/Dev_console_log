@@ -28,7 +28,6 @@ export default function AppDetail() {
   const [mostrarModalExclusao, setMostrarModalExclusao] = useState(false);
   const [metricas, setMetricas] = useState({ cpu: '0%', ram: '0 MB', status: '...', uptime: '0s', restarts: 0, pid: 0, modo: '-' });
 
-  // --- NOVOS ESTADOS PARA SELEÇÃO MULTIPLA ---
   const [modoSelecao, setModoSelecao] = useState(false);
   const [sessoesSelecionadas, setSessoesSelecionadas] = useState<string[]>([]);
 
@@ -109,7 +108,7 @@ export default function AppDetail() {
     cancelarSelecao(); // Sai do modo de seleção após apagar
   };
 
-  // A MAGIA DO DOWNLOAD DE ARQUIVO .TXT
+  //DOWNLOAD DE ARQUIVO .TXT
   const exportarParaTxt = () => {
     const sessoesParaExportar = historicoSessoes.filter(s => sessoesSelecionadas.includes(s.id));
     

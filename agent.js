@@ -29,9 +29,7 @@ io.on('connection', (socket) => {
 pm2.connect((err) => {
   if (err) process.exit(2);
 
-  // 1. O BATIMENTO CARDÍACO (Novo!)
-  // A cada 3 segundos, lê a memória de todas as aplicações e envia
-// Função para transformar milissegundos num texto bonito (ex: 2d 4h 30m)
+  
   const calcularUptime = (timestamp) => {
     if (!timestamp) return '0s';
     const diff = Date.now() - timestamp;
@@ -57,7 +55,6 @@ pm2.connect((err) => {
         status: app.pm2_env.status,
         cpu: app.monit ? Math.round(app.monit.cpu) + '%' : '0%',
         ram: app.monit ? Math.round(app.monit.memory / 1024 / 1024) + ' MB' : '0 MB',
-        // --- NOVOS DADOS ABAIXO ---
         uptime: calcularUptime(app.pm2_env.pm_uptime),
         restarts: app.pm2_env.restart_time || 0,
         pid: app.pid,
@@ -68,16 +65,35 @@ pm2.connect((err) => {
     });
   }, 3000);
 
-  // 2. O ESCUTA DE LOGS (Continua igualzinho)
+ // O CÉREBRO: Escutando Logs e Eventos
   pm2.launchBus((err, bus) => {
-    if (err) return console.error(err);
-    console.log('🎧 Escutando logs e enviando métricas...');
+    if (err) return console.error('Erro no Bus:', err);
+
+    console.log('🎧 Escutando barramento de logs do PM2...');
 
     bus.on('log:out', (pacote) => {
-      io.emit('novoLog', { app: pacote.process.name, tipo: 'info', texto: pacote.data });
+      // Ignora os próprios logs
+      if (pacote.process.name === 'nexus-agent') return;
+
+      console.log(`[ESPIÃO] Log enviado para o Front: "${pacote.process.name}"`);
+
+      // ENVIANDO O NOME EXATO (Sem cortes)
+      io.emit('novoLog', { 
+        app: pacote.process.name, 
+        tipo: 'info', 
+        texto: pacote.data 
+      });
     });
+
     bus.on('log:err', (pacote) => {
-      io.emit('novoLog', { app: pacote.process.name, tipo: 'erro', texto: pacote.data });
+      if (pacote.process.name === 'nexus-agent') return;
+
+      // ENVIANDO O NOME EXATO (Sem cortes)
+      io.emit('novoLog', { 
+        app: pacote.process.name, 
+        tipo: 'erro', 
+        texto: pacote.data 
+      });
     });
   });
 });
